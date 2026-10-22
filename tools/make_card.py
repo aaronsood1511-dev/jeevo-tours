@@ -48,6 +48,9 @@ GLYPH = {
  'phone': '<path d="M6.1 3.6c.5-.5 1.4-.4 1.8.2l1.1 1.6c.3.5.2 1.2-.2 1.6l-.8.7c.6 1.4 1.7 2.5 3.1 3.1l.7-.8c.4-.4 1.1-.5 1.6-.2l1.6 1.1c.6.4.7 1.3.2 1.8l-.8.8c-.6.6-1.4.8-2.1.6C8.6 13 5 9.4 4.1 5.5c-.2-.8 0-1.6.6-2.1z" fill="#fff"/>',
  'mail':  '<rect x="3.4" y="5.2" width="13.2" height="9.6" rx="1" fill="none" stroke="#fff" stroke-width="1.7"/>'
           '<path d="M3.9 5.8l6.1 4.6 6.1-4.6" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>',
+ 'insta': '<rect x="4.1" y="4.1" width="11.8" height="11.8" rx="3.7" fill="none" stroke="#fff" stroke-width="1.7"/>'
+          '<circle cx="10" cy="10" r="3.1" fill="none" stroke="#fff" stroke-width="1.7"/>'
+          '<circle cx="13.5" cy="6.5" r="1.05" fill="#fff"/>',
  'web':   '<circle cx="10" cy="10" r="6.4" fill="none" stroke="#fff" stroke-width="1.6"/>'
           '<ellipse cx="10" cy="10" rx="2.7" ry="6.4" fill="none" stroke="#fff" stroke-width="1.5"/>'
           '<path d="M3.7 8h12.6M3.7 12h12.6" stroke="#fff" stroke-width="1.5"/>',
@@ -59,10 +62,11 @@ def icon(kind):
 # Contact rows, measured against the original layout: icon discs on the same
 # left margin, first text line on the disc's centre line.
 ROWS = [
-    ('phone', '+61 493 574 631', 'Brisbane, Australia', 288),
-    ('phone', '+91 88004 92691', 'Gurugram, India',     370),
-    ('mail',  'jeevotoursandtravels@gmail.com', '',     456),
-    ('web',   'jeevo.co.in',                    '',     508),
+    ('phone', '+91 88004 92691', 'Gurugram, India',     268),
+    ('phone', '+61 493 574 631', 'Brisbane, Australia', 341),
+    ('mail',  'jeevotoursandtravels@gmail.com', '',     414),
+    ('web',   'jeevo.co.in',                    '',     462),
+    ('insta', '@jeevotoursandtravels',           '',    510),
 ]
 
 def rows_html():
@@ -98,16 +102,9 @@ HTML = u'''<!doctype html>
   .f-logo  { position: absolute; left: 50%; transform: translateX(-50%);
              top: __LOGO_T__mm; width: __LOGO_W__mm; }
   .f-logo svg { width: 100%; height: auto; display: block; }
-  .f-tours { position: absolute; left: 50%; transform: translateX(-50%);
-             top: __TOURS_T__mm; display: flex; align-items: center; gap: __TG__mm;
-             font-family: 'Playfair Display', serif; font-weight: 500;
-             font-size: 8.8pt; letter-spacing: .38em; text-indent: .38em;
-             color: __INK__; white-space: nowrap; }
-  .f-tours::before, .f-tours::after { content: ""; width: __TR__mm; height: .22mm;
-             background: __RULE__; opacity: .9; }
   .f-tag   { position: absolute; left: 50%; transform: translateX(-50%);
              top: __TAG_T__mm; font-family: 'Playfair Display', serif;
-             font-weight: 400; font-size: 6.4pt; letter-spacing: .015em;
+             font-weight: 400; font-size: 5.8pt; letter-spacing: .02em;
              color: __INK__; white-space: nowrap; }
 
   /* ---------------- back ---------------- */
@@ -127,10 +124,10 @@ HTML = u'''<!doctype html>
           align-items: flex-start; gap: __ROW_G__mm; }
   .ic   { flex: none; width: __IC__mm; height: __IC__mm; display: block; }
   .tx   { display: flex; flex-direction: column; }
-  .main { font-family: 'Mukta', sans-serif; font-weight: 500; font-size: 6pt;
+  .main { font-family: 'Mukta', sans-serif; font-weight: 500; font-size: 5.9pt;
           line-height: __IC__mm; color: __INK__; letter-spacing: .008em; }
-  .sub  { font-family: 'Mukta', sans-serif; font-weight: 400; font-size: 5.4pt;
-          line-height: 1.15; color: __SUB__; letter-spacing: .05em; margin-top: .25mm; }
+  .sub  { font-family: 'Mukta', sans-serif; font-weight: 400; font-size: 5.2pt;
+          line-height: 1.05; color: __SUB__; letter-spacing: .045em; margin-top: .2mm; }
 
   @media screen {
     body { display: flex; flex-direction: column; align-items: center;
@@ -144,7 +141,6 @@ HTML = u'''<!doctype html>
 <div class="card front">
   <img class="art" src="__FRONT_ART__" alt="">
   <div class="f-logo">__LOGO__</div>
-  <div class="f-tours">TOURS</div>
   <div class="f-tag">Experiential Tours with a Personal Touch</div>
 </div>
 
@@ -163,14 +159,13 @@ HTML = u'''<!doctype html>
 def build():
     logo = open(os.path.join(HERE, 'logo.svg')).read().strip()
     sub = {
-        '__LOGO_T__':  f(y(206)),  '__LOGO_W__': f(d(370)),
-        '__TOURS_T__': f(y(400)),  '__TG__':     f(d(21)),  '__TR__': f(d(44)),
-        '__TAG_T__':   f(y(462)),
-        '__NAME_L__':  f(x(138)),  '__NAME_T__': f(y(145)),
-        '__ROLE_L__':  f(x(150)),  '__ROLE_T__': f(y(220)),
-        '__RULE_L__':  f(x(95)),   '__RULE_T__': f(y(266)),
+        '__LOGO_T__':  f(y(188)),  '__LOGO_W__': f(d(370)),
+        '__TAG_T__':   f(y(404)),
+        '__NAME_L__':  f(x(138)),  '__NAME_T__': f(y(135)),
+        '__ROLE_L__':  f(x(150)),  '__ROLE_T__': f(y(208)),
+        '__RULE_L__':  f(x(95)),   '__RULE_T__': f(y(252)),
         '__RULE_W__':  f(d(385)),  '__DIA_L__':  f(d(168)),
-        '__ROW_L__':   f(x(93)),   '__ROW_G__':  f(d(27)),  '__IC__': f(d(35)),
+        '__ROW_L__':   f(x(95)),   '__ROW_G__':  f(d(25)),  '__IC__': f(d(32)),
         '__INK__': INK, '__SUB__': SUB, '__RULE__': RULE, '__GOLD__': GOLD,
         '__LOGO__': logo, '__ROWS__': rows_html(),
         '__FRONT_ART__': b64('card-front-art.jpg'),
