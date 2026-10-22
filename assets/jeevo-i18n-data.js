@@ -3,7 +3,7 @@
    the headings changed and every sentence stayed English, which reads as a
    broken site rather than a multilingual one. A language only goes in here
    with 100% key coverage, and check-i18n.js enforces that.
-   The sixteen tour pages are still English only. */
+   Tour and legal page strings live in assets/i18n/<page>.js. */
 window.JV_I18N = {
   en:{name:"English",  dir:"ltr"},
   fr:{name:"Fran\u00e7ais", dir:"ltr"},

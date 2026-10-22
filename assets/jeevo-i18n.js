@@ -1,7 +1,8 @@
 /* ---------------------------------------------------------------
-   Language switcher. Swaps the interface strings only - navigation,
-   headings and buttons. Detailed itineraries stay in English and the
-   switcher says so rather than leaving people to discover it.
+   Language switcher. Translates the whole site - navigation, headings,
+   buttons, the sixteen itineraries and the legal pages. Page strings come
+   from assets/i18n/<page>.js, built by tools/i18n_build.py; anything not
+   translated yet falls back to English per string, never per page.
    --------------------------------------------------------------- */
 (function (win, doc) {
   'use strict';
@@ -23,6 +24,17 @@
 
   /* translate one subtree - used for anything injected after first paint */
   function paint(root, lang) {
+    /* alt / title / aria-label / meta description are attributes, so
+       textContent never reaches them - images and page titles would stay
+       English in every language without this */
+    var ats = root.querySelectorAll ? root.querySelectorAll('[data-i18n-attr]') : [];
+    for (var a = 0; a < ats.length; a++) {
+      var spec = ats[a].getAttribute('data-i18n-attr').split(';');
+      for (var t = 0; t < spec.length; t++) {
+        var bits = spec[t].split(':'), arow = S[bits[1]];
+        if (bits.length === 2 && arow) ats[a].setAttribute(bits[0], arow[lang] || arow.en);
+      }
+    }
     var phs = root.querySelectorAll ? root.querySelectorAll('[data-i18n-ph]') : [];
     for (var p = 0; p < phs.length; p++) {
       var pk = phs[p].getAttribute('data-i18n-ph'), prow = S[pk];
@@ -56,6 +68,17 @@
     }
     /* placeholders and aria-labels are attributes, so textContent never reaches
        them - a form would stay English in every language without this */
+    /* alt / title / aria-label / meta description are attributes, so
+       textContent never reaches them - images and page titles would stay
+       English in every language without this */
+    var ats = doc.querySelectorAll('[data-i18n-attr]');
+    for (var a = 0; a < ats.length; a++) {
+      var spec = ats[a].getAttribute('data-i18n-attr').split(';');
+      for (var t = 0; t < spec.length; t++) {
+        var bits = spec[t].split(':'), arow = S[bits[1]];
+        if (bits.length === 2 && arow) ats[a].setAttribute(bits[0], arow[lang] || arow.en);
+      }
+    }
     var phs = doc.querySelectorAll('[data-i18n-ph]');
     for (var p = 0; p < phs.length; p++) {
       var pk = phs[p].getAttribute('data-i18n-ph'), prow = S[pk];
