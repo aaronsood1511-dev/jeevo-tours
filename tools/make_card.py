@@ -160,7 +160,7 @@ def build():
     logo = open(os.path.join(HERE, 'logo.svg')).read().strip()
     sub = {
         '__LOGO_T__':  f(y(188)),  '__LOGO_W__': f(d(370)),
-        '__TAG_T__':   f(y(404)),
+        '__TAG_T__':   f(y(356)),
         '__NAME_L__':  f(x(138)),  '__NAME_T__': f(y(135)),
         '__ROLE_L__':  f(x(150)),  '__ROLE_T__': f(y(208)),
         '__RULE_L__':  f(x(95)),   '__RULE_T__': f(y(252)),
